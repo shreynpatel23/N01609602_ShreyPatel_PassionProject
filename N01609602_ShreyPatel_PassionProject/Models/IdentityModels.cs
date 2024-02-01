@@ -28,6 +28,12 @@ namespace N01609602_ShreyPatel_PassionProject.Models
         // setting the project modal as DB table
         public DbSet<Project> Projects { get; set; }
 
+        // setting the collaborator modal as DB table
+        public DbSet<Collaborator> Collaborators {  get; set; }
+
+        // setting the activity modal as Db table
+        public DbSet<Activity> Activities {  get; set; }
+
 
         public static ApplicationDbContext Create()
         {
