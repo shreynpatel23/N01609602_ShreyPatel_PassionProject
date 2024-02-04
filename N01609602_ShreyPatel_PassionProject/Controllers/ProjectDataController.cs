@@ -18,6 +18,7 @@ namespace N01609602_ShreyPatel_PassionProject.Controllers
 
         // GET: api/ProjectData/GetAllProjects
         [HttpGet]
+        [Route("api/ProjectData/GetAllProjects")]
         public IQueryable<Project> GetAllProjects()
         {
             return db.Projects;
@@ -26,6 +27,7 @@ namespace N01609602_ShreyPatel_PassionProject.Controllers
         // GET: api/ProjectData/GetProjectDetails/5
         [ResponseType(typeof(Project))]
         [HttpGet]
+        [Route("api/ProjectData/GetProjectDetails/{id}")]
         public IHttpActionResult GetProjectDetails(int id)
         {
             Project project = db.Projects.Find(id);
@@ -40,6 +42,7 @@ namespace N01609602_ShreyPatel_PassionProject.Controllers
         // PUT: api/ProjectData/UpdateProject/5
         [ResponseType(typeof(void))]
         [HttpPost]
+        [Route("api/ProjectData/UpdateProject/{id}")]
         public IHttpActionResult UpdateProject(int id, Project project)
         {
             if (!ModelState.IsValid)
@@ -76,6 +79,7 @@ namespace N01609602_ShreyPatel_PassionProject.Controllers
         // POST: api/ProjectData/AddProject
         [ResponseType(typeof(Project))]
         [HttpPost]
+        [Route("api/ProjectData/AddProject")]
         public IHttpActionResult AddProject(Project project)
         {
             if (!ModelState.IsValid)
@@ -92,6 +96,7 @@ namespace N01609602_ShreyPatel_PassionProject.Controllers
         // DELETE: api/ProjectData/DeleteProject/5
         [ResponseType(typeof(Project))]
         [HttpPost]
+        [Route("api/ProjectData/DeleteProject/{id}")]
         public IHttpActionResult DeleteProject(int id)
         {
             Project project = db.Projects.Find(id);

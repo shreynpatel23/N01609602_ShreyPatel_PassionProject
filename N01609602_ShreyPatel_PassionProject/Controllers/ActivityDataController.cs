@@ -18,6 +18,7 @@ namespace N01609602_ShreyPatel_PassionProject.Controllers
 
         // GET: api/ActivityData/GetAllActivities
         [HttpGet]
+        [Route("api/ActivityData/GetAllActivities")]
         public IEnumerable<ActivityDto> GetAllActivities()
         {
             // capture the list of result in activity list;
@@ -49,6 +50,7 @@ namespace N01609602_ShreyPatel_PassionProject.Controllers
         // GET: api/ActivityData/GetActivityDetails/5
         [ResponseType(typeof(Activity))]
         [HttpGet]
+        [Route("api/ActivityData/GetActivityDetails/{id}")]
         public IHttpActionResult GetActivityDetails(int id)
         {
             Activity activity = db.Activities.Find(id);
@@ -63,6 +65,7 @@ namespace N01609602_ShreyPatel_PassionProject.Controllers
         // PUT: api/ActivityData/UpdateActivity/5
         [ResponseType(typeof(void))]
         [HttpPost]
+        [Route("api/ActivityData/UpdateActivity/{id}")]
         public IHttpActionResult UpdateActivity(int id, Activity activity)
         {
             if (!ModelState.IsValid)
@@ -99,6 +102,7 @@ namespace N01609602_ShreyPatel_PassionProject.Controllers
         // POST: api/ActivityData/AddActivity
         [ResponseType(typeof(Activity))]
         [HttpPost]
+        [Route("api/ActivityData/AddActivity")]
         public IHttpActionResult AddActivity(Activity activity)
         {
             if (!ModelState.IsValid)
@@ -115,6 +119,7 @@ namespace N01609602_ShreyPatel_PassionProject.Controllers
         // DELETE: api/ActivityData/DeleteActivity/5
         [ResponseType(typeof(Activity))]
         [HttpPost]
+        [Route("api/ActivityData/DeleteActivity/{id}")]
         public IHttpActionResult DeleteActivity(int id)
         {
             Activity activity = db.Activities.Find(id);

@@ -18,6 +18,7 @@ namespace N01609602_ShreyPatel_PassionProject.Controllers
 
         // GET: api/CollaboratorData/GetAllCollaborators
         [HttpGet]
+        [Route("api/CollaboratorData/GetAllCollaborators")]
         public IQueryable<Collaborator> GetAllCollaborators()
         {
             return db.Collaborators;
@@ -26,6 +27,7 @@ namespace N01609602_ShreyPatel_PassionProject.Controllers
         // GET: api/CollaboratorData/GetCollaboratorsDetails/5
         [ResponseType(typeof(Collaborator))]
         [HttpGet]
+        [Route("api/CollaboratorData/GetCollaboratorsDetails/{id}")]
         public IHttpActionResult GetCollaborator(int id)
         {
             Collaborator collaborator = db.Collaborators.Find(id);
@@ -40,6 +42,7 @@ namespace N01609602_ShreyPatel_PassionProject.Controllers
         // PUT: api/CollaboratorData/UpdateCollaborators/5
         [ResponseType(typeof(void))]
         [HttpPost]
+        [Route("api/CollaboratorData/UpdateCollaborators/{id}")]
         public IHttpActionResult UpdateCollaborator(int id, Collaborator collaborator)
         {
             if (!ModelState.IsValid)
@@ -76,6 +79,7 @@ namespace N01609602_ShreyPatel_PassionProject.Controllers
         // POST: api/CollaboratorData/AddCollaborators
         [ResponseType(typeof(Collaborator))]
         [HttpPost]
+        [Route("api/CollaboratorData/AddCollaborators")]
         public IHttpActionResult AddCollaborator(Collaborator collaborator)
         {
             if (!ModelState.IsValid)
@@ -92,6 +96,7 @@ namespace N01609602_ShreyPatel_PassionProject.Controllers
         // DELETE: api/CollaboratorData/DeleteCollaborators/5
         [ResponseType(typeof(Collaborator))]
         [HttpPost]
+        [Route("api/CollaboratorData/DeleteCollaborators/{id}")]
         public IHttpActionResult DeleteCollaborator(int id)
         {
             Collaborator collaborator = db.Collaborators.Find(id);
