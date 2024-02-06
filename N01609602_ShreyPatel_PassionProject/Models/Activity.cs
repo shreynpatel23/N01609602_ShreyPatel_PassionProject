@@ -69,11 +69,17 @@ namespace N01609602_ShreyPatel_PassionProject.Models
         // Estimates are in HOURS
         public string ActivityEstimates { get; set; }
 
+        // collaborator id
+        public int CollaboratorId { get; set; }
+
         // First name of the collaborator
         public string CollaboratorFirstName { get; set; }
 
         // Last name of the collaborator
         public string CollaboratorLastName { get; set; }
+
+        // project id
+        public int ProjectId { get; set; }
 
         // Name of the project in which the task is
         public string ProjectName { get; set; }

@@ -1,4 +1,5 @@
 ﻿using N01609602_ShreyPatel_PassionProject.Models;
+using N01609602_ShreyPatel_PassionProject.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -18,7 +19,7 @@ namespace N01609602_ShreyPatel_PassionProject.Controllers
         static ProjectController()
         {
             client = new HttpClient();
-            client.BaseAddress = new Uri("https://localhost:44346/api/ProjectData/");
+            client.BaseAddress = new Uri("https://localhost:44346/api/");
         }
 
         // GET: Project/List
@@ -28,7 +29,7 @@ namespace N01609602_ShreyPatel_PassionProject.Controllers
             //curl https://localhost:44346/api/ProjectData/GetAllProjects
 
 
-            string url = "GetAllProjects";
+            string url = "ProjectData/GetAllProjects";
             HttpResponseMessage response = client.GetAsync(url).Result;
 
             IEnumerable<Project> projects = response.Content.ReadAsAsync<IEnumerable<Project>>().Result;
@@ -40,15 +41,38 @@ namespace N01609602_ShreyPatel_PassionProject.Controllers
         // GET Project/Details/2
         public ActionResult Details(int id)
         {
-            //objective: communicate with our animal data api to retrieve one animal
+            // as we need data from two modals (project and tasks) we are going to use ViewModal
+            ProjectActivity projectActivity = new ProjectActivity();
+
+            // get the project details by calling the getProjectDetails api
             //curl https://localhost:44346/api/GetProjectDetails/{id}
 
-            string url = "GetProjectDetails/" + id;
+            string url = "ProjectData/GetProjectDetails/" + id;
+
+            // capture the response
             HttpResponseMessage response = client.GetAsync(url).Result;
 
-            Project project= response.Content.ReadAsAsync<Project>().Result;
+            // convert the response into the project modal
+            Project project = response.Content.ReadAsAsync<Project>().Result;
 
-            return View(project);
+            // assign the selected project to the viewmodal
+            projectActivity.selectedProject = project;
+
+            // get the list of activities for a particular project by calling the api
+            // curl http://localhost:44346/api/ActivityData/GetActivitiesForProject/{id}
+
+            url = "ActivityData/GetActivitiesForProject/" + id;
+
+            // capture the response
+            response = client.GetAsync(url).Result;
+
+            // convert the response into the project modal
+            IEnumerable<ActivityDto> activities = response.Content.ReadAsAsync<IEnumerable<ActivityDto>>().Result;
+
+            // assign the activities to the viewmodal
+            projectActivity.activities = activities;
+
+            return View(projectActivity);
         }
 
         // GET Project/Add
@@ -62,7 +86,7 @@ namespace N01609602_ShreyPatel_PassionProject.Controllers
         public ActionResult Create(Project project)
         {
             // curl -H "Content-Type:application/json" -d @project.json https://localhost:44346/api/ProjectData/AddProject
-            string url = "AddProject";
+            string url = "ProjectData/AddProject";
 
 
             string jsonpayload = jss.Serialize(project);
@@ -86,7 +110,7 @@ namespace N01609602_ShreyPatel_PassionProject.Controllers
         // GET Project/Edit/5
         public ActionResult Edit(int id)
         {
-            string url = "GetProjectDetails/" + id;
+            string url = "ProjectData/GetProjectDetails/" + id;
             HttpResponseMessage response = client.GetAsync(url).Result;
 
             Project project = response.Content.ReadAsAsync<Project>().Result;
@@ -103,7 +127,7 @@ namespace N01609602_ShreyPatel_PassionProject.Controllers
             try
             {
                 // curl -H "Content-Type:application/json" -d @project.json https://localhost:44346/api/ProjectData/UpdateProject/2
-                string url = "UpdateProject/" + id;
+                string url = "ProjectData/UpdateProject/" + id;
 
 
                 string jsonpayload = jss.Serialize(project);
@@ -126,7 +150,7 @@ namespace N01609602_ShreyPatel_PassionProject.Controllers
         // GET: Project/ConfirmDelete/5
         public ActionResult ConfirmDelete(int id)
         {
-            string url = "GetProjectDetails/" + id;
+            string url = "ProjectData/GetProjectDetails/" + id;
             HttpResponseMessage response = client.GetAsync(url).Result;
 
             Project project = response.Content.ReadAsAsync<Project>().Result;
@@ -140,7 +164,7 @@ namespace N01609602_ShreyPatel_PassionProject.Controllers
             try
             {
                 // curl -d "" https://localhost:44346/api/ProjectData/DeleteProject/2
-                string url = "DeleteProject/" + id;
+                string url = "ProjectData/DeleteProject/" + id;
 
                 HttpContent content = new StringContent("");
                 content.Headers.ContentType.MediaType = "application/json";

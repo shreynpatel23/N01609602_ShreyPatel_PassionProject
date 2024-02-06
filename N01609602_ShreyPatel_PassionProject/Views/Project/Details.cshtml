@@ -1,16 +1,34 @@
-﻿﻿@model N01609602_ShreyPatel_PassionProject.Models.Project
+﻿﻿@model N01609602_ShreyPatel_PassionProject.Models.ViewModels.ProjectActivity
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Project Details";
 }
 
 <a href="/Project/List" class="btn btn-secondary">Back To Projects</a>
 <hr />
 <h2>Project details</h2>
-<p>Project Name: <span class="fw-bold text-secondary">@Model.ProjectName</span></p>
-<p>Project Description: <span class="fw-bold text-secondary">@Model.ProjectDescription</span></p>
-<p>Project Due Date: <span class="fw-bold text-secondary">@Model.DueDate</span></p>
+<p>Project Name: <span class="fw-bold text-secondary">@Model.selectedProject.ProjectName</span></p>
+<p>Project Description: <span class="fw-bold text-secondary">@Model.selectedProject.ProjectDescription</span></p>
+<p>Project Due Date: <span class="fw-bold text-secondary">@Model.selectedProject.DueDate</span></p>
 
 <hr />
 
 <h2>Tasks</h2>
+<div class="d-flex align-items-start gap-4 flex-wrap mt-4">
+    @foreach (var activity in Model.activities)
+    {
+        <div class="card" style="width: 25rem;">
+            <div class="card-body">
+                <h5 class="card-title">@activity.ActivityName</h5>
+                <p class="card-text">@activity.ActivityDescription</p>
+                <p class="text-dark">Assigned To : <span class="fw-bold"><a href="/Collaborator/Details/@activity.CollaboratorId">@activity.CollaboratorFirstName @activity.CollaboratorLastName</a></span></p>
+                <p class="text-dark">Due Date : <span class="fw-bold">@activity.ActivityDueDate</span></p>
+                <p class="text-dark">Priority : <span class="fw-bold">@activity.ActivityPriority</span></p>
+                <p class="text-dark">Status : <span class="fw-bold">@activity.ActivityStatus</span></p>
+                <p class="text-dark">Estimates : <span class="fw-bold">@activity.ActivityEstimates</span></p>
+                <a href="/Activity/Edit/@activity.ActivityId" class="card-link btn btn-success">Edit</a>
+                <a href="/Activity/ConfirmDelete/@activity.ActivityId" class="card-link btn btn-danger">Delete</a>
+            </div>
+        </div>
+    }
+</div>
