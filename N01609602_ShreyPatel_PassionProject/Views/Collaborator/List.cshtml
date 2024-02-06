@@ -1,42 +1,22 @@
 ﻿﻿@model IEnumerable<N01609602_ShreyPatel_PassionProject.Models.Collaborator>
 
 @{
-    ViewBag.Title = "List";
+    ViewBag.Title = "Collaborator List";
 }
 
 <div class="d-flex align-items-center gap-4">
-    <h2>Collaborators</h2>  
+    <h2>Collaborators</h2>
     <a href="/Collaborator/Add" class="btn btn-primary">Add Collaborator</a>
 </div>
-<div class="table-responsive">
-    <table class="table table-hover mt-4">
-        <thead>
-            <tr>
-                <th scope="col">First Name</th>
-                <th scope="col">Last Name</th>
-                <th scope="col">Email</th>
-                <th scope="col">Role</th>
-                <th scope="col">Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var collaborator in Model)
-            {
-                <tr>
-                    <td>@collaborator.CollaboratorFirstName</td>
-                    <td>@collaborator.CollaboratorLastName</td>
-                    <td>@collaborator.CollaboratorEmail</td>
-                    <td>@collaborator.CollaboratorRole</td>
-                    <td>
-                        <div class="d-flex align-items-center gap-2">
-                            <a href="/Collaborator/Details/@collaborator.CollaboratorId" class="btn btn-primary">View Details</a>
-                            <a href="/Collaborator/Edit/@collaborator.CollaboratorId" class="btn btn-success">Edit</a>
-                            <a href="/Collaborator/ConfirmDelete/@collaborator.CollaboratorId" class="btn btn-danger">Delete</a>
-                        </div>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-</div>
-
+@foreach (var collaborator in Model)
+{
+    <div class="py-4 border-bottom">
+        <h3><a href="/Collaborator/Details/@collaborator.CollaboratorId" class="text-dark">@collaborator.CollaboratorFirstName @collaborator.CollaboratorLastName</a></h3>
+        <p class="text-dark">Email: <br /> @collaborator.CollaboratorEmail</p>
+        <p class="text-dark">Role: <br /> <span class="fw">@collaborator.CollaboratorRole</span></p>
+        <div class="d-flex align-items-center gap-2">
+            <a href="/Collaborator/Edit/@collaborator.CollaboratorId" class="btn btn-success">Edit</a>
+            <a href="/Collaborator/ConfirmDelete/@collaborator.CollaboratorId" class="btn btn-danger">Delete</a>
+        </div>
+    </div>
+}

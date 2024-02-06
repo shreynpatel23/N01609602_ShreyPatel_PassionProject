@@ -8,32 +8,15 @@
     <h2>Projects</h2>
     <a href="/Project/Add" class="btn btn-primary m-0">Add Project</a>
 </div>
-<div class="table-responsive">
-    <table class="table table-hover mt-4">
-        <thead>
-            <tr>
-                <th scope="col" style="width: 150px">Project Name</th>
-                <th scope="col" style="width: 350px">Description</th>
-                <th scope="col" style="width: 150px">Due Date</th>
-                <th scope="col" style="width: 350px">Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var project in Model)
-            {
-                <tr>
-                    <td>@project.ProjectName</td>
-                    <td>@project.ProjectDescription</td>
-                    <td>@project.DueDate</td>
-                    <td>
-                        <div class="d-flex align-items-center gap-2">
-                            <a href="/Project/Details/@project.ProjectId" class="btn btn-primary">View Details</a>
-                            <a href="/Project/Edit/@project.ProjectId" class="btn btn-success">Edit</a>
-                            <a href="/Project/ConfirmDelete/@project.ProjectId" class="btn btn-danger">Delete</a>
-                        </div>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-</div>
+@foreach (var project in Model)
+{
+    <div class="py-4 border-bottom">
+        <h3><a href="/Project/Details/@project.ProjectId" class="text-dark">@project.ProjectName</a></h3>
+        <p class="text-dark">@project.ProjectDescription</p>
+        <p class="text-dark">Due Date: <br /> <span class="fw">@project.DueDate</span></p>
+        <div class="d-flex align-items-center gap-2">
+            <a href="/Project/Edit/@project.ProjectId" class="btn btn-success">Edit</a>
+            <a href="/Project/ConfirmDelete/@project.ProjectId" class="btn btn-danger">Delete</a>
+        </div>
+    </div>
+}
