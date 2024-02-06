@@ -4,18 +4,36 @@
     ViewBag.Title = "Project List";
 }
 
-<h2>Projects</h2>
-
-<div class="mt-4">
-    @foreach (var project in Model)
-    {
-        <div class="card w-50">
-            <div class="card-body">
-                <h5 class="card-title"><a href="/Project/Details/@project.ProjectId">@project.ProjectName</a></h5>
-                <p class="card-text">@project.ProjectDescription</p>
-                <p class="card-text">@project.DueDate</p>
-                <a href="/Project/Details/@project.ProjectId" class="btn btn-primary">View Details</a>
-            </div>
-        </div>
-    }
- </div>
+<div class="d-flex align-items-center gap-4">
+    <h2>Projects</h2>
+    <a href="/Project/Add" class="btn btn-primary m-0">Add Project</a>
+</div>
+<div class="table-responsive">
+    <table class="table table-hover mt-4">
+        <thead>
+            <tr>
+                <th scope="col" style="width: 150px">Project Name</th>
+                <th scope="col" style="width: 350px">Description</th>
+                <th scope="col" style="width: 150px">Due Date</th>
+                <th scope="col" style="width: 350px">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var project in Model)
+            {
+                <tr>
+                    <td>@project.ProjectName</td>
+                    <td>@project.ProjectDescription</td>
+                    <td>@project.DueDate</td>
+                    <td>
+                        <div class="d-flex align-items-center gap-2">
+                            <a href="/Project/Details/@project.ProjectId" class="btn btn-primary">View Details</a>
+                            <a href="/Project/Edit/@project.ProjectId" class="btn btn-success">Edit</a>
+                            <a href="/Project/ConfirmDelete/@project.ProjectId" class="btn btn-danger">Delete</a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -4,13 +4,13 @@
     ViewBag.Title = "Details";
 }
 
-<a href="/Collaborator/List">Back</a>
+<a href="/Collaborator/List" class="btn btn-secondary">Back To Collaborators</a>
 <hr />
-<h2>Hello from Collaborator details</h2>
-<p>@Model.CollaboratorFirstName</p>
-<p>@Model.CollaboratorLastName</p>
-<p>@Model.CollaboratorEmail</p>
-<p>@Model.CollaboratorRole</p>
+<h2>Collaborator details</h2>
+<p>First Name: <span class="fw-bold text-secondary"> @Model.CollaboratorFirstName</span></p>
+<p>Last Name: <span class="fw-bold text-secondary"> @Model.CollaboratorLastName</span></p>
+<p>Email: <span class="fw-bold text-secondary"> @Model.CollaboratorEmail</span></p>
+<p>Role: <span class="fw-bold text-secondary"> @Model.CollaboratorRole</span></p>
 
 <hr />
 

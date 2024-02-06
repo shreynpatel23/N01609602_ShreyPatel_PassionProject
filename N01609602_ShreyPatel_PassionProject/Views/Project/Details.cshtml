@@ -4,10 +4,12 @@
     ViewBag.Title = "Details";
 }
 
-<a href="/Project/List">Back</a>
-<h2>Hello from Project details</h2>
-<p>@Model.ProjectName</p>
-<p>@Model.ProjectDescription</p>
+<a href="/Project/List" class="btn btn-secondary">Back To Projects</a>
+<hr />
+<h2>Project details</h2>
+<p>Project Name: <span class="fw-bold text-secondary">@Model.ProjectName</span></p>
+<p>Project Description: <span class="fw-bold text-secondary">@Model.ProjectDescription</span></p>
+<p>Project Due Date: <span class="fw-bold text-secondary">@Model.DueDate</span></p>
 
 <hr />
 

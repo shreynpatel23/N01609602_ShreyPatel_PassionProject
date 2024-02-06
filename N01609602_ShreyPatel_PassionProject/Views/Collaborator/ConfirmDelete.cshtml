@@ -1,0 +1,16 @@
+﻿@model N01609602_ShreyPatel_PassionProject.Models.Collaborator
+@{
+    ViewBag.Title = "Confirm Delete Collaborator";
+}
+
+<h2>Confirm Delete <span class="text-danger"> @Model.CollaboratorFirstName @Model.CollaboratorLastName</span></h2>
+
+<p class="mb-0 mt-3">Are you sure you want to delete
+<p>Please keep in mind this action cannot be undone!</p>
+<div class="d-flex align-items-center gap-4 mt-4">
+    <a href="/Collaborator/Details/@Model.CollaboratorId" class="btn btn-secondary">Cancel</a>
+    <form action="/Collaborator/Delete/@Model.CollaboratorId" method="POST">
+        <input type="submit" class="btn btn-danger" value="Confirm Delete" />
+    </form>
+</div>
+

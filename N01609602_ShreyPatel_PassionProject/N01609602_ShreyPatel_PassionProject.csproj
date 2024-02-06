@@ -244,6 +244,7 @@
     <Content Include="Scripts\bootstrap.esm.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="JsonData\project.json" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -293,6 +294,14 @@
     <Content Include="Views\Collaborator\List.cshtml" />
     <Content Include="Views\Collaborator\Details.cshtml" />
     <Content Include="Views\Project\Details.cshtml" />
+    <Content Include="Views\Project\Add.cshtml" />
+    <Content Include="Views\Project\Error.cshtml" />
+    <Content Include="Views\Collaborator\Add.cshtml" />
+    <Content Include="Views\Collaborator\Error.cshtml" />
+    <Content Include="Views\Project\Edit.cshtml" />
+    <Content Include="Views\Project\ConfirmDelete.cshtml" />
+    <Content Include="Views\Collaborator\Edit.cshtml" />
+    <Content Include="Views\Collaborator\ConfirmDelete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

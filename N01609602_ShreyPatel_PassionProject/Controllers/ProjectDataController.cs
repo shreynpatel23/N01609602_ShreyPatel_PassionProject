@@ -90,7 +90,7 @@ namespace N01609602_ShreyPatel_PassionProject.Controllers
             db.Projects.Add(project);
             db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = project.ProjectId }, project);
+            return Ok();
         }
 
         // DELETE: api/ProjectData/DeleteProject/5
@@ -108,7 +108,7 @@ namespace N01609602_ShreyPatel_PassionProject.Controllers
             db.Projects.Remove(project);
             db.SaveChanges();
 
-            return Ok(project);
+            return Ok();
         }
 
         protected override void Dispose(bool disposing)

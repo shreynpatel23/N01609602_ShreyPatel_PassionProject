@@ -1,0 +1,26 @@
+﻿@model N01609602_ShreyPatel_PassionProject.Models.Project
+@{
+    ViewBag.Title = "Edit Project";
+}
+
+<a href="/Project/List" class="btn btn-secondary">Back To Projects</a>
+<hr />
+<h2>Edit Project</h2>
+
+<form action="/Project/Update/@Model.ProjectId" method="POST">
+    <input type="hidden" name="ProjectId" value="@Model.ProjectId" />
+    <div class="mb-3">
+        <label for="ProjectName" class="form-label">Project Name</label>
+        <input autocomplete="off" required value="@Model.ProjectName" type="text" class="form-control" id="ProjectName" name="ProjectName" placeholder="Enter project name here" aria-describedby="ProjectName">
+    </div>
+    <div class="mb-3">
+        <label for="ProjectDescription" class="form-label">Project Description</label>
+        <textarea autocomplete="off" required class="form-control" id="ProjectDescription" name="ProjectDescription" placeholder="Write a two line project description" rows="3">@Model.ProjectDescription</textarea>
+    </div>
+    <div class="mb-3">
+        <label for="DueDate" class="form-label">Due Date</label>
+        <input autocomplete="off" required value="@ViewData["DueDate"]" type="date" class="form-control" id="DueDate" name="DueDate" placeholder="YYYY-MM-DD">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+

@@ -1,0 +1,36 @@
+﻿
+@{
+    ViewBag.Title = "Add Collaborator";
+}
+
+<h2>Add Collaborator</h2>
+
+<form action="/Collaborator/Create" method="POST">
+    <div class="mb-3">
+        <label for="CollaboratorFirstName" class="form-label">First Name</label>
+        <input autocomplete="off" type="text" required class="form-control" id="CollaboratorFirstName" name="CollaboratorFirstName" placeholder="Enter first name here" aria-describedby="CollaboratorFirstName">
+    </div>
+    <div class="mb-3">
+        <label for="CollaboratorLastName" class="form-label">Last Name</label>
+        <input autocomplete="off" type="text" required class="form-control" id="CollaboratorLastName" name="CollaboratorLastName" placeholder="Enter last name here" aria-describedby="CollaboratorLastName">
+    </div>
+    <div class="mb-3">
+        <label for="CollaboratorEmail" class="form-label">Email</label>
+        <input autocomplete="off" type="email" required class="form-control" id="CollaboratorEmail" name="CollaboratorEmail" placeholder="Enter email here" aria-describedby="CollaboratorEmail">
+    </div>
+    <div class="mb-3">
+        <label for="CollaboratorRole" class="form-label">Role</label>
+        <select class="form-select" required id="CollaboratorRole" name="CollaboratorRole" aria-describedby="CollaboratorLastName">
+            <option selected>Select a Role</option>
+            <option value="Project Manager">Project Manager</option>
+            <option value="Web Developer">Web Developer</option>
+            <option value="UX Designer">UX Designer</option>
+            <option value="Database Manager">Database Manager</option>
+            <option value="Human Resources">Human Resources</option>
+            <option value="Sales Executive">Sales Executive</option>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+

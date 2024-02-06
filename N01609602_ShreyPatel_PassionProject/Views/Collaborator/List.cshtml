@@ -4,33 +4,39 @@
     ViewBag.Title = "List";
 }
 
-<h2>Collaborators</h2>
-
-<table class="table table-hover">
-    <thead>
-        <tr>
-            <th scope="col">First Name</th>
-            <th scope="col">Last Name</th>
-            <th scope="col">Email</th>
-            <th scope="col">Role</th>
-            <th scope="col">Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var collaborator in Model)
-        {
+<div class="d-flex align-items-center gap-4">
+    <h2>Collaborators</h2>  
+    <a href="/Collaborator/Add" class="btn btn-primary">Add Collaborator</a>
+</div>
+<div class="table-responsive">
+    <table class="table table-hover mt-4">
+        <thead>
             <tr>
-                <td>@collaborator.CollaboratorFirstName</td>
-                <td>@collaborator.CollaboratorLastName</td>
-                <td>@collaborator.CollaboratorEmail</td>
-                <td>@collaborator.CollaboratorRole</td>
-                <td class="d-flex align-items-center gap-2">
-                    <a href="/Collaborator/Details/@collaborator.CollaboratorId" class="btn btn-primary">View Details</a>
-                    <a href="/Collaborator/Edit/@collaborator.CollaboratorId" class="btn btn-success">Edit</a>
-                    <a href="/Collaborator/Delete/@collaborator.CollaboratorId" class="btn btn-danger">Delete</a>
-                </td> 
+                <th scope="col">First Name</th>
+                <th scope="col">Last Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Role</th>
+                <th scope="col">Actions</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var collaborator in Model)
+            {
+                <tr>
+                    <td>@collaborator.CollaboratorFirstName</td>
+                    <td>@collaborator.CollaboratorLastName</td>
+                    <td>@collaborator.CollaboratorEmail</td>
+                    <td>@collaborator.CollaboratorRole</td>
+                    <td>
+                        <div class="d-flex align-items-center gap-2">
+                            <a href="/Collaborator/Details/@collaborator.CollaboratorId" class="btn btn-primary">View Details</a>
+                            <a href="/Collaborator/Edit/@collaborator.CollaboratorId" class="btn btn-success">Edit</a>
+                            <a href="/Collaborator/ConfirmDelete/@collaborator.CollaboratorId" class="btn btn-danger">Delete</a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
 

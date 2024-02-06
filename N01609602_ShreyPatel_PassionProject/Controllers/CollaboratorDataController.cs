@@ -39,10 +39,10 @@ namespace N01609602_ShreyPatel_PassionProject.Controllers
             return Ok(collaborator);
         }
 
-        // PUT: api/CollaboratorData/UpdateCollaborators/5
+        // PUT: api/CollaboratorData/UpdateCollaborator/5
         [ResponseType(typeof(void))]
         [HttpPost]
-        [Route("api/CollaboratorData/UpdateCollaborators/{id}")]
+        [Route("api/CollaboratorData/UpdateCollaborator/{id}")]
         public IHttpActionResult UpdateCollaborator(int id, Collaborator collaborator)
         {
             if (!ModelState.IsValid)
@@ -76,10 +76,10 @@ namespace N01609602_ShreyPatel_PassionProject.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/CollaboratorData/AddCollaborators
+        // POST: api/CollaboratorData/AddCollaborator
         [ResponseType(typeof(Collaborator))]
         [HttpPost]
-        [Route("api/CollaboratorData/AddCollaborators")]
+        [Route("api/CollaboratorData/AddCollaborator")]
         public IHttpActionResult AddCollaborator(Collaborator collaborator)
         {
             if (!ModelState.IsValid)
@@ -90,7 +90,7 @@ namespace N01609602_ShreyPatel_PassionProject.Controllers
             db.Collaborators.Add(collaborator);
             db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = collaborator.CollaboratorId }, collaborator);
+            return Ok();
         }
 
         // DELETE: api/CollaboratorData/DeleteCollaborators/5
