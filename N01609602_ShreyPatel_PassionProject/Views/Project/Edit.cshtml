@@ -3,8 +3,6 @@
     ViewBag.Title = "Edit Project";
 }
 
-<a href="/Project/List" class="btn btn-secondary">Back To Projects</a>
-<hr />
 <h2>Edit Project</h2>
 
 <form action="/Project/Update/@Model.ProjectId" method="POST">
@@ -21,6 +19,9 @@
         <label for="DueDate" class="form-label">Due Date</label>
         <input autocomplete="off" required value="@ViewData["DueDate"]" type="date" class="form-control" id="DueDate" name="DueDate" placeholder="YYYY-MM-DD">
     </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <div class="d-flex align-items-center gap-4">
+        <a href="/Project/Details/@Model.ProjectId" class="btn btn-secondary">Cancel</a>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
 </form>
 

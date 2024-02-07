@@ -86,8 +86,5 @@ namespace N01609602_ShreyPatel_PassionProject.Models
 
         // Description of the project
         public string ProjectDescription { get; set; }
-
-        // Due date of the project
-        public DateTime DueDate { get; set; }
     }
 }

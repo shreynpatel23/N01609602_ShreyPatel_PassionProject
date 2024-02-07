@@ -6,28 +6,33 @@
 
 <a href="/Project/List" class="btn btn-secondary">Back To Projects</a>
 <hr />
-<h2>Project details</h2>
-<p>Project Name: <span class="fw-bold text-secondary">@Model.selectedProject.ProjectName</span></p>
-<p>Project Description: <span class="fw-bold text-secondary">@Model.selectedProject.ProjectDescription</span></p>
-<p>Project Due Date: <span class="fw-bold text-secondary">@Model.selectedProject.DueDate</span></p>
+<div class="d-flex align-items-center gap-2">
+    <h2>Project details</h2>
+    <div class="d-flex align-items-center gap-4 ms-auto">
+        <a href="/Project/Edit/@Model.selectedProject.ProjectId" class="btn btn-success">Edit</a>
+        <a href="/Project/ConfirmDelete/@Model.selectedProject.ProjectId" class="btn btn-danger">Delete</a>
+    </div>
+</div>
+<p class="text-dark">Project Name: <span class="fw-bold">@Model.selectedProject.ProjectName</span></p>
+<p class="text-dark">Project Description: <span class="fw-bold">@Model.selectedProject.ProjectDescription</span></p>
+<p class="text-dark">Project Due Date: <span class="fw-bold">@Model.selectedProject.DueDate</span></p>
 
 <hr />
 
-<h2>Tasks</h2>
+<h2>Activities</h2>
+@if (Model.activities.Count() <= 0)
+{
+    <p>There are no activities assigned to this project</p>
+    <a class="btn btn-primary" href="/Activity/List">Go To Activities</a>
+}
 <div class="d-flex align-items-start gap-4 flex-wrap mt-4">
     @foreach (var activity in Model.activities)
     {
         <div class="card" style="width: 25rem;">
             <div class="card-body">
-                <h5 class="card-title">@activity.ActivityName</h5>
+                <h5 class="card-title"><a href="/Activity/Details/@activity.ActivityId" class="text-dark">@activity.ActivityName</a></h5>
                 <p class="card-text">@activity.ActivityDescription</p>
-                <p class="text-dark">Assigned To : <span class="fw-bold"><a href="/Collaborator/Details/@activity.CollaboratorId">@activity.CollaboratorFirstName @activity.CollaboratorLastName</a></span></p>
-                <p class="text-dark">Due Date : <span class="fw-bold">@activity.ActivityDueDate</span></p>
-                <p class="text-dark">Priority : <span class="fw-bold">@activity.ActivityPriority</span></p>
-                <p class="text-dark">Status : <span class="fw-bold">@activity.ActivityStatus</span></p>
-                <p class="text-dark">Estimates : <span class="fw-bold">@activity.ActivityEstimates</span></p>
-                <a href="/Activity/Edit/@activity.ActivityId" class="card-link btn btn-success">Edit</a>
-                <a href="/Activity/ConfirmDelete/@activity.ActivityId" class="card-link btn btn-danger">Delete</a>
+                <p class="text-dark">Assigned To : <br /> <span class="fw-bold"><a href="/Collaborator/Details/@activity.CollaboratorId">@activity.CollaboratorFirstName @activity.CollaboratorLastName</a></span></p>
             </div>
         </div>
     }

@@ -1,4 +1,4 @@
-﻿﻿@model N01609602_ShreyPatel_PassionProject.Models.Collaborator
+﻿﻿@model N01609602_ShreyPatel_PassionProject.Models.ViewModels.CollaboratorActivity
 
 @{
     ViewBag.Title = "Collaborator Details";
@@ -6,12 +6,35 @@
 
 <a href="/Collaborator/List" class="btn btn-secondary">Back To Collaborators</a>
 <hr />
-<h2>Collaborator details</h2>
-<p>First Name: <span class="fw-bold text-secondary"> @Model.CollaboratorFirstName</span></p>
-<p>Last Name: <span class="fw-bold text-secondary"> @Model.CollaboratorLastName</span></p>
-<p>Email: <span class="fw-bold text-secondary"> @Model.CollaboratorEmail</span></p>
-<p>Role: <span class="fw-bold text-secondary"> @Model.CollaboratorRole</span></p>
+<div class="d-flex align-items-center gap-2">
+    <h2>Collaborator details</h2>
+    <div class="d-flex align-items-center gap-4 ms-auto">
+        <a href="/Collaborator/Edit/@Model.SelectedCollaborator.CollaboratorId" class="btn btn-success">Edit</a>
+        <a href="/Collaborator/ConfirmDelete/@Model.SelectedCollaborator.CollaboratorId" class="btn btn-danger">Delete</a>
+    </div>
+</div>
+<p class="text-dark">First Name: <span class="fw-bold"> @Model.SelectedCollaborator.CollaboratorFirstName</span></p>
+<p class="text-dark">Last Name: <span class="fw-bold"> @Model.SelectedCollaborator.CollaboratorLastName</span></p>
+<p class="text-dark">Email: <span class="fw-bold"> @Model.SelectedCollaborator.CollaboratorEmail</span></p>
+<p class="text-dark">Role: <span class="fw-bold"> @Model.SelectedCollaborator.CollaboratorRole</span></p>
 
 <hr />
 
-<h2>Tasks</h2>
+<h2>Activities</h2>
+@if (Model.activities.Count() <= 0)
+{
+    <p>There are no activities assigned to this collaborator</p>
+    <a class="btn btn-primary" href="/Activity/List">Go To Activities</a>
+}
+<div class="d-flex align-items-start gap-4 flex-wrap mt-4">
+    @foreach (var activity in Model.activities)
+    {
+        <div class="card" style="width: 25rem;">
+            <div class="card-body">
+                <h5 class="card-title"><a href="/Activity/Details/@activity.ActivityId" class="text-dark">@activity.ActivityName</a></h5>
+                <p class="text-dark">@activity.ActivityDescription</p>
+                <p class="text-dark">Project : <br /> <span class="fw-bold"><a href="/Project/Details/@activity.ProjectId">@activity.ProjectName</a></span></p>
+            </div>
+        </div>
+    }
+</div>

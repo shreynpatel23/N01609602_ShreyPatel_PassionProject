@@ -41,8 +41,6 @@ namespace N01609602_ShreyPatel_PassionProject.Controllers
                 CollaboratorLastName = activity.Collaborator.CollaboratorLastName,
                 ProjectId = activity.Project.ProjectId,
                 ProjectName = activity.Project.ProjectName,
-                ProjectDescription = activity.Project.ProjectDescription,
-                DueDate = activity.Project.DueDate,
             }));
 
             // return the activity dto
@@ -73,8 +71,37 @@ namespace N01609602_ShreyPatel_PassionProject.Controllers
                 CollaboratorLastName = activity.Collaborator.CollaboratorLastName,
                 ProjectId = activity.Project.ProjectId,
                 ProjectName = activity.Project.ProjectName,
-                ProjectDescription = activity.Project.ProjectDescription,
-                DueDate = activity.Project.DueDate,
+            }));
+
+            // return the activity dto
+            return ActivityDtos;
+        }
+
+        // Get all activites for a collaborator with id
+        [HttpGet]
+        [Route("api/ActivityData/GetActivitiesForCollaborator/{id}")]
+        public IEnumerable<ActivityDto> GetActivitiesForCollaborator(int id)
+        {
+            // capture the list of result in activity list;
+            List<Activity> Activities = db.Activities.Where(a => a.CollaboratorId == id).ToList();
+            // create a new activity dtos list to store the response
+            List<ActivityDto> ActivityDtos = new List<ActivityDto>();
+
+            // loop through the activites array and push it to activities dto
+            Activities.ForEach(activity => ActivityDtos.Add(new ActivityDto()
+            {
+                ActivityId = activity.ActivityId,
+                ActivityName = activity.ActivityName,
+                ActivityDescription = activity.ActivityDescription,
+                ActivityDueDate = activity.ActivityDueDate,
+                ActivityEstimates = activity.ActivityEstimates,
+                ActivityPriority = activity.ActivityPriority,
+                ActivityStatus = activity.ActivityStatus,
+                CollaboratorId = activity.Collaborator.CollaboratorId,
+                CollaboratorFirstName = activity.Collaborator.CollaboratorFirstName,
+                CollaboratorLastName = activity.Collaborator.CollaboratorLastName,
+                ProjectId = activity.Project.ProjectId,
+                ProjectName = activity.Project.ProjectName,
             }));
 
             // return the activity dto
@@ -93,7 +120,23 @@ namespace N01609602_ShreyPatel_PassionProject.Controllers
                 return NotFound();
             }
 
-            return Ok(activity);
+            ActivityDto activityDto = new ActivityDto()
+            {
+                ActivityId = activity.ActivityId,
+                ActivityName = activity.ActivityName,
+                ActivityDescription = activity.ActivityDescription,
+                ActivityDueDate = activity.ActivityDueDate,
+                ActivityEstimates = activity.ActivityEstimates,
+                ActivityPriority = activity.ActivityPriority,
+                ActivityStatus = activity.ActivityStatus,
+                CollaboratorId = activity.Collaborator.CollaboratorId,
+                CollaboratorFirstName = activity.Collaborator.CollaboratorFirstName,
+                CollaboratorLastName = activity.Collaborator.CollaboratorLastName,
+                ProjectId = activity.Project.ProjectId,
+                ProjectName = activity.Project.ProjectName,
+            };
+
+            return Ok(activityDto);
         }
 
         // PUT: api/ActivityData/UpdateActivity/5
@@ -147,7 +190,7 @@ namespace N01609602_ShreyPatel_PassionProject.Controllers
             db.Activities.Add(activity);
             db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = activity.ActivityId }, activity);
+            return Ok();
         }
 
         // DELETE: api/ActivityData/DeleteActivity/5

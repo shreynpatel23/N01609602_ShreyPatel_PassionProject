@@ -1,0 +1,82 @@
+﻿@model N01609602_ShreyPatel_PassionProject.Models.ViewModels.AddUpdateActivity
+@{
+    ViewBag.Title = "Add Activity";
+    ViewBag.Priority = new List<string> { "Easy", "Medium", "Hard" };
+    ViewBag.Status = new List<string> { "Todo", "In Progress", "Testing", "Done" };
+    ViewBag.Estimates = new List<int> { 2, 3, 5, 8, 13 };
+}
+
+<h2>Add Activity</h2>
+
+<form action="/Activity/Create" method="POST">
+    <div class="mb-3">
+        <label for="ActivityName" class="form-label">Activity Name</label>
+        <input autocomplete="off" required type="text" class="form-control" id="ActivityName" name="ActivityName" placeholder="Enter activity name here" aria-describedby="ActivityName">
+    </div>
+    <div class="mb-3">
+        <label for="ActivityDescription" class="form-label">Activity Description</label>
+        <textarea autocomplete="off" required class="form-control" id="ActivityDescription" name="ActivityDescription" placeholder="Write two lines about the activity" rows="3"></textarea>
+    </div>
+    <div class="mb-3">
+        <label for="ActivityDueDate" class="form-label">Due Date</label>
+        <input autocomplete="off" required type="date" class="form-control" id="ActivityDueDate" name="ActivityDueDate" placeholder="YYYY-MM-DD">
+    </div>
+    <div class="d-flex align-items-center gap-4">
+        <div class="mb-3" style="width: 18rem;">
+            <label for="CollaboratorId" class="form-label">Assign Collaborator</label>
+            <select class="form-select" required id="CollaboratorId" name="CollaboratorId" aria-describedby="Collaborator">
+                <option value="">Select Collaborator</option>
+                @foreach (var collaborator in Model.collaborators)
+                {
+                    <option value="@collaborator.CollaboratorId">@collaborator.CollaboratorFirstName @collaborator.CollaboratorLastName</option>
+                }
+            </select>
+        </div>
+        <div class="mb-3" style="width: 18rem;">
+            <label for="ProjectId" class="form-label">Assign Project</label>
+            <select class="form-select" required id="ProjectId" name="ProjectId" aria-describedby="Project">
+                <option value="">Select Project</option>
+                @foreach (var project in Model.projects)
+                {
+                    <option value="@project.ProjectId">@project.ProjectName</option>
+                }
+            </select>
+        </div>
+    </div>
+    <div class="d-flex align-items-center gap-4">
+        <div class="mb-3" style="width: 18rem;">
+            <label for="ActivityStatus" class="form-label">Status</label>
+            <select class="form-select" required id="ActivityStatus" name="ActivityStatus" aria-describedby="ActivityStatus">
+                <option value="">Select Status</option>
+                @foreach (var status in ViewBag.Status)
+                {
+                    <option value="@status">@status</option>
+                }
+            </select>
+        </div>
+        <div class="mb-3" style="width: 18rem;">
+            <label for="ActivityPriority" class="form-label">Priority</label>
+            <select class="form-select" required id="ActivityPriority" name="ActivityPriority" aria-describedby="ActivityPriority">
+                <option value="">Select Priority</option>
+                @foreach (var priority in ViewBag.Priority)
+                {
+                    <option value="@priority">@priority</option>
+                }
+            </select>
+        </div>
+    </div>
+    <div class="mb-3" style="width: 18rem;">
+        <label for="ActivityEstimates" class="form-label">Estimates</label>
+        <select class="form-select" required id="ActivityEstimates" name="ActivityEstimates" aria-describedby="ActivityEstimates">
+            <option value="">Select Estimated</option>
+            @foreach (var estimate in ViewBag.Estimates)
+            {
+                <option value="@estimate">@estimate Hours</option>
+            }
+        </select>
+    </div>
+    <div class="d-flex align-items-center gap-4">
+        <a href="/Activity/List" class="btn btn-secondary">Cancel</a>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+</form>

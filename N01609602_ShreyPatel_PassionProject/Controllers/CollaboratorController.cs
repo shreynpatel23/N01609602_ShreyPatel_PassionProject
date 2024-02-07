@@ -1,5 +1,6 @@
 ﻿using Antlr.Runtime.Misc;
 using N01609602_ShreyPatel_PassionProject.Models;
+using N01609602_ShreyPatel_PassionProject.Models.ViewModels;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -22,7 +23,7 @@ namespace N01609602_ShreyPatel_PassionProject.Controllers
         static CollaboratorController()
         {
             client = new HttpClient();
-            client.BaseAddress = new Uri("https://localhost:44346/api/CollaboratorData/");
+            client.BaseAddress = new Uri("https://localhost:44346/api/");
         }
 
         // GET  Error
@@ -36,7 +37,7 @@ namespace N01609602_ShreyPatel_PassionProject.Controllers
         public ActionResult List()
         {
 
-            string url = "GetAllCollaborators";
+            string url = "CollaboratorData/GetAllCollaborators";
             HttpResponseMessage response = client.GetAsync(url).Result;
 
             IEnumerable<Collaborator> collaborators = response.Content.ReadAsAsync<IEnumerable<Collaborator>>().Result;
@@ -47,15 +48,33 @@ namespace N01609602_ShreyPatel_PassionProject.Controllers
         // GET Collaborator/Details/2
         public ActionResult Details(int id)
         {
-            //objective: communicate with our animal data api to retrieve one animal
+            // as we need data from two modals (collaborator and tasks) we are going to use ViewModal
+            CollaboratorActivity collaboratorActivity = new CollaboratorActivity();
+
+            // get the selected collaborator with the given id
             //curl https://localhost:44346/api/CollaboratorData/GetCollaboratorsDetails/{id}
 
-            string url = "GetCollaboratorsDetails/" + id;
+            string url = "CollaboratorData/GetCollaboratorsDetails/" + id;
             HttpResponseMessage response = client.GetAsync(url).Result;
 
-            Collaborator collaborator = response.Content.ReadAsAsync<Collaborator>().Result;
+            Collaborator selectedCollaborator = response.Content.ReadAsAsync<Collaborator>().Result;
 
-            return View(collaborator);
+            // assign the selected collaborator in the view modal
+            collaboratorActivity.SelectedCollaborator = selectedCollaborator;
+
+            // get the list of activities for a particular collaborator
+            url = "ActivityData/GetActivitiesForCollaborator/" + id;
+
+            // capture the response
+            response = client.GetAsync(url).Result;
+
+            // convert the response into the project modal
+            IEnumerable<ActivityDto> activities = response.Content.ReadAsAsync<IEnumerable<ActivityDto>>().Result;
+
+            // assign the activities to the viewmodal
+            collaboratorActivity.activities = activities;
+
+            return View(collaboratorActivity);
         }
 
         // GET Collaborator/Add
@@ -69,7 +88,7 @@ namespace N01609602_ShreyPatel_PassionProject.Controllers
         public ActionResult Create(Collaborator collaborator)
         {
             // curl -H "Content-Type:application/json" -d @collaborator.json https://localhost:44346/api/CollaboratorData/AddCollaborator
-            string url = "AddCollaborator";
+            string url = "CollaboratorData/AddCollaborator";
 
 
             string jsonpayload = jss.Serialize(collaborator);
@@ -95,7 +114,7 @@ namespace N01609602_ShreyPatel_PassionProject.Controllers
         // GET Collaborator/Edit/5
         public ActionResult Edit(int id)
         {
-            string url = "GetCollaboratorsDetails/" + id;
+            string url = "CollaboratorData/GetCollaboratorsDetails/" + id;
             HttpResponseMessage response = client.GetAsync(url).Result;
 
             Collaborator collaborator = response.Content.ReadAsAsync<Collaborator>().Result;
@@ -110,7 +129,7 @@ namespace N01609602_ShreyPatel_PassionProject.Controllers
             try
             {
                 // curl -H "Content-Type:application/json" -d @collaborator.json https://localhost:44346/api/CollaboratorData/UpdateCollaborator/2
-                string url = "UpdateCollaborator/" + id;
+                string url = "CollaboratorData/UpdateCollaborator/" + id;
 
                 string jsonpayload = jss.Serialize(collaborator);
 
@@ -130,7 +149,7 @@ namespace N01609602_ShreyPatel_PassionProject.Controllers
         // GET: Collaborator/ConfirmDelete/2
         public ActionResult ConfirmDelete(int id)
         {
-            string url = "GetCollaboratorsDetails/" + id;
+            string url = "CollaboratorData/GetCollaboratorsDetails/" + id;
             HttpResponseMessage response = client.GetAsync(url).Result;
 
             Collaborator collaborator = response.Content.ReadAsAsync<Collaborator>().Result;
@@ -146,7 +165,7 @@ namespace N01609602_ShreyPatel_PassionProject.Controllers
             {
                 // TODO: Add delete logic here
                 // curl -d "" https://localhost:44346/api/CollaboratorData/DeleteCollaborators/2
-                string url = "DeleteCollaborators/" + id;
+                string url = "CollaboratorData/DeleteCollaborators/" + id;
 
                 HttpContent content = new StringContent("");
                 content.Headers.ContentType.MediaType = "application/json";

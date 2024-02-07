@@ -1,6 +1,7 @@
 ﻿
 @{
     ViewBag.Title = "Add Collaborator";
+    ViewBag.Roles = new List<string> { "Project Manager", "Web Developer", "UX Designer", "Database Manager", "Human Resources", "Sales Executive" };
 }
 
 <h2>Add Collaborator</h2>
@@ -20,16 +21,17 @@
     </div>
     <div class="mb-3">
         <label for="CollaboratorRole" class="form-label">Role</label>
-        <select class="form-select" required id="CollaboratorRole" name="CollaboratorRole" aria-describedby="CollaboratorLastName">
-            <option value="Project Manager" selected>Project Manager</option>
-            <option value="Web Developer">Web Developer</option>
-            <option value="UX Designer">UX Designer</option>
-            <option value="Database Manager">Database Manager</option>
-            <option value="Human Resources">Human Resources</option>
-            <option value="Sales Executive">Sales Executive</option>
+        <select class="form-select" required id="CollaboratorRole" name="CollaboratorRole" aria-describedby="CollaboratorRole">
+            @foreach (var role in ViewBag.Roles)
+            {
+                <option value="@role">@role</option>
+            }
         </select>
     </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <div class="d-flex align-items-center gap-4">
+        <a href="/Collaborator/List" class="btn btn-secondary">Cancel</a>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
 </form>
 
 

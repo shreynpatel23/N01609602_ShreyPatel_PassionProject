@@ -1,10 +1,9 @@
 ﻿@model N01609602_ShreyPatel_PassionProject.Models.Collaborator
 @{
     ViewBag.Title = "Edit Collaborator";
+    ViewBag.Roles = new List<string> { "Project Manager", "Web Developer", "UX Designer", "Database Manager", "Human Resources", "Sales Executive" };
 }
 
-<a href="/Collaborator/List" class="btn btn-secondary">Back To Collaborators</a>
-<hr />
 <h2>Edit Collaborator</h2>
 
 <form action="/Collaborator/Update/@Model.CollaboratorId" method="POST">
@@ -24,15 +23,21 @@
     <div class="mb-3">
         <label for="CollaboratorRole" class="form-label">Role</label>
         <select class="form-select" value="@Model.CollaboratorRole" required id="CollaboratorRole" name="CollaboratorRole" aria-describedby="CollaboratorLastName">
-            <option value="Project Manager" selected>Project Manager</option>
-            <option value="Web Developer">Web Developer</option>
-            <option value="UX Designer">UX Designer</option>
-            <option value="Database Manager">Database Manager</option>
-            <option value="Human Resources">Human Resources</option>
-            <option value="Sales Executive">Sales Executive</option>
+            @foreach (var role in ViewBag.roles)
+            {
+                string selected = "";
+                if (role == Model.CollaboratorRole)
+                {
+                    selected = "selected";
+                }
+                <option value="@role" @selected>@role</option>
+            }
         </select>
     </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <div class="d-flex align-items-center gap-4">
+        <a href="/Collaborator/Details/@Model.CollaboratorId" class="btn btn-secondary">Cancel</a>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
 </form>
 
 
