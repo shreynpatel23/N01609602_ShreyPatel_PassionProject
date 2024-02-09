@@ -17,15 +17,18 @@ namespace N01609602_ShreyPatel_PassionProject.Controllers
 {
     public class CollaboratorController : Controller
     {
+        // define the http client and json serializer
         private static readonly HttpClient client;
         private JavaScriptSerializer jss = new JavaScriptSerializer();
 
+        // create a new client and configure the base url
         static CollaboratorController()
         {
             client = new HttpClient();
             client.BaseAddress = new Uri("https://localhost:44346/api/");
         }
 
+        // renders the error page
         // GET  Error
         public ActionResult Error()
         {
@@ -33,18 +36,23 @@ namespace N01609602_ShreyPatel_PassionProject.Controllers
             return View();
         }
 
+        // renders the list of collaborator
         // GET: Collaborator/List
         public ActionResult List()
         {
-
+            // call the getAllCollaborator api
             string url = "CollaboratorData/GetAllCollaborators";
+
+            // store the data in a response
             HttpResponseMessage response = client.GetAsync(url).Result;
 
+            // create an empty collaborator list and assign the response
             IEnumerable<Collaborator> collaborators = response.Content.ReadAsAsync<IEnumerable<Collaborator>>().Result;
-
+            // send the data to the view
             return View(collaborators);
         }
 
+        // renders the collaboraotr list page
         // GET Collaborator/Details/2
         public ActionResult Details(int id)
         {
@@ -77,29 +85,35 @@ namespace N01609602_ShreyPatel_PassionProject.Controllers
             return View(collaboratorActivity);
         }
 
+        // renders the add collaborator form
         // GET Collaborator/Add
         public ActionResult Add()
         {
             return View();
         }
 
+        // use this function to store the collaborator details in the database
         // POST: Collaborator/Create
         [HttpPost]
         public ActionResult Create(Collaborator collaborator)
         {
+            // call the add collaborator api
             // curl -H "Content-Type:application/json" -d @collaborator.json https://localhost:44346/api/CollaboratorData/AddCollaborator
             string url = "CollaboratorData/AddCollaborator";
 
-
+            // serialize the json payload
             string jsonpayload = jss.Serialize(collaborator);
 
-            Debug.WriteLine(jsonpayload);
-
+            // update the content type
             HttpContent content = new StringContent(jsonpayload);
             content.Headers.ContentType.MediaType = "application/json";
 
+            // store the response
             HttpResponseMessage response = client.PostAsync(url, content).Result;
-            Debug.WriteLine("response is" + response);
+            
+            // check for status code
+            // if success -> redirect to list
+            // else -> redirect to error page
             if (response.IsSuccessStatusCode)
             {
                 return RedirectToAction("List");
@@ -111,33 +125,44 @@ namespace N01609602_ShreyPatel_PassionProject.Controllers
 
         }
 
+        // renders the edit collaborator form 
         // GET Collaborator/Edit/5
         public ActionResult Edit(int id)
         {
+            // fetch the details to prefill the form 
+            // for that call the getCollaboratorDetails api
             string url = "CollaboratorData/GetCollaboratorsDetails/" + id;
             HttpResponseMessage response = client.GetAsync(url).Result;
 
+            // create an empty collaborator object and assign the result
             Collaborator collaborator = response.Content.ReadAsAsync<Collaborator>().Result;
 
+            // send the data into the view
             return View(collaborator);
         }
 
+        // use this function to update the collaborator details in the database
         // POST Collaborator/Update/2
         [HttpPost]
         public ActionResult Update(int id, Collaborator collaborator)
         {
             try
             {
+                // call the updateCollaborator api
                 // curl -H "Content-Type:application/json" -d @collaborator.json https://localhost:44346/api/CollaboratorData/UpdateCollaborator/2
                 string url = "CollaboratorData/UpdateCollaborator/" + id;
 
+                // serialize the json payload
                 string jsonpayload = jss.Serialize(collaborator);
 
+                // update the conetne type
                 HttpContent content = new StringContent(jsonpayload);
                 content.Headers.ContentType.MediaType = "application/json";
 
+                // read the data and store it in httpresponsemessage
                 HttpResponseMessage response = client.PostAsync(url, content).Result;
                 
+                // redirect to the details page
                 return RedirectToAction("Details/" + id);
             }
             catch
@@ -146,31 +171,44 @@ namespace N01609602_ShreyPatel_PassionProject.Controllers
             }
         }
 
+        // renders the confirm delete page for a collaborator
         // GET: Collaborator/ConfirmDelete/2
         public ActionResult ConfirmDelete(int id)
         {
+            // fetch the collaborator details to display data on the confirm page
             string url = "CollaboratorData/GetCollaboratorsDetails/" + id;
             HttpResponseMessage response = client.GetAsync(url).Result;
 
+            // create an empty collaborator object and assign the response to it
             Collaborator collaborator = response.Content.ReadAsAsync<Collaborator>().Result;
 
+            // send the collaborator details to the view
             return View(collaborator);
         }
 
+
+        // use this function to delete the collaborator details from the database
         // POST: Collaborator/Delete/5
         [HttpPost]
         public ActionResult Delete(int id)
         {
             try
             {
-                // TODO: Add delete logic here
+                // call the deleteCollaborator api 
                 // curl -d "" https://localhost:44346/api/CollaboratorData/DeleteCollaborators/2
                 string url = "CollaboratorData/DeleteCollaborators/" + id;
 
+                // update the content type as this is a post request
                 HttpContent content = new StringContent("");
                 content.Headers.ContentType.MediaType = "application/json";
+
+                // assign the response to httpresponsemessage
                 HttpResponseMessage response = client.PostAsync(url, content).Result;
 
+
+                // check for status code
+                // if success -> redirect to list page
+                // else redirect to the error page
                 if (response.IsSuccessStatusCode)
                 {
                     return RedirectToAction("List");

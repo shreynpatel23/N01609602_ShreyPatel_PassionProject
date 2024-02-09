@@ -14,8 +14,19 @@ namespace N01609602_ShreyPatel_PassionProject.Controllers
 {
     public class CollaboratorDataController : ApiController
     {
+        // initialize the db context once and for all
         private ApplicationDbContext db = new ApplicationDbContext();
 
+        /// <summary>
+        /// Returns a list of all the collaborators present in the database
+        /// </summary>
+        /// <example>GET api/CollaboratorData/GetAllCollaborators</example>
+        /// <example>
+        /// GET: curl "http://localhost:50860/api/CollaboratorData/GetAllCollaborators"
+        /// </example>
+        /// <returns>
+        /// A list of all the collaboratorspresent in DB.
+        /// </returns>
         // GET: api/CollaboratorData/GetAllCollaborators
         [HttpGet]
         [Route("api/CollaboratorData/GetAllCollaborators")]
@@ -24,6 +35,20 @@ namespace N01609602_ShreyPatel_PassionProject.Controllers
             return db.Collaborators;
         }
 
+
+        /// <summary>
+        /// Returns details of a particular Collaborator
+        /// </summary>
+        /// <param name="id">the id of collaborator to fetch the details of it</param>
+        /// <example>GET api/CollaboratorData/GetCollaboratorsDetails/2</example>
+        /// <example>
+        /// GET: curl "http://localhost:50860/api/CollaboratorData/GetCollaboratorsDetails/1"
+        /// GET: curl "http://localhost:50860/api/CollaboratorData/GetCollaboratorsDetails/2"
+        /// GET: curl "http://localhost:50860/api/CollaboratorData/GetCollaboratorsDetails/3"
+        /// </example>
+        /// <returns>
+        /// A single collaborator object
+        /// </returns>
         // GET: api/CollaboratorData/GetCollaboratorsDetails/5
         [ResponseType(typeof(Collaborator))]
         [HttpGet]
@@ -39,7 +64,25 @@ namespace N01609602_ShreyPatel_PassionProject.Controllers
             return Ok(collaborator);
         }
 
-        // PUT: api/CollaboratorData/UpdateCollaborator/5
+        /// <summary>
+        /// Update a collaborator with a given id and the updated details
+        /// </summary>
+        /// <param name="id">The id for which we need to change the data</param>
+        /// <param name="collaborator">the updated collaborator data</param>
+        /// <example>
+        /// POST api/CollaboratorData/UpdateCollaborator/{id}
+        /// Request body
+        /// {
+        ///	"CollaboratorFirstName":"Jhon",
+        ///	"CollaboratorLastName": "Doe",
+        ///	"CollaboratorEmail":"jhon@gmail.com",
+        ///	"CollaboratorRole":"Web Developer"
+        /// }
+        /// </example>
+        /// <example>
+        /// POST: curl "http://localhost:50860/api/CollaboratorData/UpdateCollaborator/2" -d @collaborator.json -H "Content-type: application/json"
+        /// </example>
+        // POST: api/CollaboratorData/UpdateCollaborator/5
         [ResponseType(typeof(void))]
         [HttpPost]
         [Route("api/CollaboratorData/UpdateCollaborator/{id}")]
@@ -76,6 +119,23 @@ namespace N01609602_ShreyPatel_PassionProject.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
+        /// <summary>
+        /// Add a new collaborator in the database
+        /// </summary>
+        /// <param name="collaborator">the collaborator data which we need to add in the database</param>
+        /// <example>
+        /// POST api/CollaboratorData/AddCollaborator
+        /// Request body
+        /// {
+        ///	"CollaboratorFirstName":"Jhon",
+        ///	"CollaboratorLastName": "Doe",
+        ///	"CollaboratorEmail":"jhon@gmail.com",
+        ///	"CollaboratorRole":"Web Developer"
+        /// }
+        /// </example>
+        /// <example>
+        /// POST: curl "http://localhost:50860/api/CollaboratorData/AddCollaborator" -d @collaborator.json -H "Content-type: application/json"
+        /// </example>
         // POST: api/CollaboratorData/AddCollaborator
         [ResponseType(typeof(Collaborator))]
         [HttpPost]
@@ -93,7 +153,15 @@ namespace N01609602_ShreyPatel_PassionProject.Controllers
             return Ok();
         }
 
-        // DELETE: api/CollaboratorData/DeleteCollaborators/5
+        /// <summary>
+        /// Deletes a particular collaborator from the database
+        /// </summary>
+        /// <param name="id">The collaborator id which we want to remove.</param>
+        /// <example>POST api/CollaboratorData/DeleteCollaborators/3</example>
+        /// <example>
+        /// POST: curl "http://localhost:50860/api/CollaboratorData/DeleteCollaborators/3" -d "" -H "Content-type: application/json"
+        /// </example>
+        // POST: api/CollaboratorData/DeleteCollaborators/5
         [ResponseType(typeof(Collaborator))]
         [HttpPost]
         [Route("api/CollaboratorData/DeleteCollaborators/{id}")]

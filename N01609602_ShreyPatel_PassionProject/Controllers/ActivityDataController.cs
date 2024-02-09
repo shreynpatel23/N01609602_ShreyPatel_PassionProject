@@ -14,8 +14,20 @@ namespace N01609602_ShreyPatel_PassionProject.Controllers
 {
     public class ActivityDataController : ApiController
     {
+        // initialize the db context once in for all
         private ApplicationDbContext db = new ApplicationDbContext();
 
+        /// <summary>
+        /// Returns a list of all the activities present in the database. Here as
+        /// we have a foreign key we need to return ActivityDto.
+        /// </summary>
+        /// <example>GET api/ActivityData/GetAllActivities</example>
+        /// <example>
+        /// GET: curl "http://localhost:50860/api/ActivityData/GetAllActivities"
+        /// </example>
+        /// <returns>
+        /// A list of all the activities DTO (Data trasnferable object) present in DB.
+        /// </returns>
         // GET: api/ActivityData/GetAllActivities
         [HttpGet]
         [Route("api/ActivityData/GetAllActivities")]
@@ -47,6 +59,17 @@ namespace N01609602_ShreyPatel_PassionProject.Controllers
             return ActivityDtos;
         }
 
+        /// <summary>
+        /// Returns a list of all the activities for a particular project id
+        /// </summary>
+        /// <param name="id">The project id for which we want to fetch all the activities</param>
+        /// <example>GET api/ActivityData/GetActivitiesForProject/2</example>
+        /// <example>
+        /// GET: curl "http://localhost:50860/api/ActivityData/GetActivitiesForProject/2"
+        /// </example>
+        /// <returns>
+        /// A list of all the activities present in DB for a particular project.
+        /// </returns>
         // Get all activites for a project with id
         [HttpGet]
         [Route("api/ActivityData/GetActivitiesForProject/{id}")]
@@ -77,6 +100,17 @@ namespace N01609602_ShreyPatel_PassionProject.Controllers
             return ActivityDtos;
         }
 
+        /// <summary>
+        /// Returns a list of all the activities for a particular collaborator id
+        /// </summary>
+        /// <param name="id">The collaborator id for which we want to fetch all the activities</param>
+        /// <example>GET api/ActivityData/GetActivitiesForCollaborator/2</example>
+        /// <example>
+        /// GET: curl "http://localhost:50860/api/ActivityData/GetActivitiesForCollaborator/2"
+        /// </example>
+        /// <returns>
+        /// A list of all the activities present in DB for a particular collaborator.
+        /// </returns>
         // Get all activites for a collaborator with id
         [HttpGet]
         [Route("api/ActivityData/GetActivitiesForCollaborator/{id}")]
@@ -108,6 +142,19 @@ namespace N01609602_ShreyPatel_PassionProject.Controllers
             return ActivityDtos;
         }
 
+        /// <summary>
+        /// Returns details of a particular activity
+        /// </summary>
+        /// <param name="id">the id of activity to fetch the details of it</param>
+        /// <example>GET api/ActivityData/GetActivityDetails/2</example>
+        /// <example>
+        /// GET: curl "http://localhost:50860/api/ActivityData/GetActivityDetails/1"
+        /// GET: curl "http://localhost:50860/api/ActivityData/GetActivityDetails/2"
+        /// GET: curl "http://localhost:50860/api/ActivityData/GetActivityDetails/3"
+        /// </example>
+        /// <returns>
+        /// A single activity DTO (data transferable object) with data
+        /// </returns>
         // GET: api/ActivityData/GetActivityDetails/5
         [ResponseType(typeof(Activity))]
         [HttpGet]
@@ -139,7 +186,29 @@ namespace N01609602_ShreyPatel_PassionProject.Controllers
             return Ok(activityDto);
         }
 
-        // PUT: api/ActivityData/UpdateActivity/5
+        /// <summary>
+        /// Update a particular collaborator with a given id and the updated activity details
+        /// </summary>
+        /// <param name="id">The id for which we need to change the data</param>
+        /// <param name="activity">the updated activity data</param>
+        /// <example>
+        /// POST api/ActivityData/UpdateActivity/{id}
+        /// Request body
+        /// {
+        /// "ActivityName" : "Test Activity Updated",
+        /// "ActivityDescription" : "Test Activity Updated description",
+        /// "ActivityDueDate" : "2024-05-21",
+        ///	"ActivityStatus": "Todo",
+        ///	"ActivityPriority" : "Easy",
+        ///	"ActivityEstimates":"2",
+        ///	"ProjectId": 2,
+        ///	"collaboratorId": 1,
+        /// }
+        /// </example>
+        /// <example>
+        /// POST: curl "http://localhost:50860/api/ActivityData/UpdateActivity/2" -d @activity.json -H "Content-type: application/json"
+        /// </example>
+        // POST: api/ActivityData/UpdateActivity/5
         [ResponseType(typeof(void))]
         [HttpPost]
         [Route("api/ActivityData/UpdateActivity/{id}")]
@@ -176,6 +245,27 @@ namespace N01609602_ShreyPatel_PassionProject.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
+        /// <summary>
+        /// Update a particular collaborator with a given id and the updated activity details
+        /// </summary>
+        /// <param name="activity">the activity data which needs to be entered in the database</param>
+        /// <example>
+        /// POST api/ActivityData/AddActivity/{id}
+        /// Request body
+        /// {
+        /// "ActivityName" : "New Test Activity",
+        /// "ActivityDescription" : "New Test Activity description",
+        /// "ActivityDueDate" : "2024-02-11",
+        ///	"ActivityStatus": "Todo",
+        ///	"ActivityPriority" : "Easy",
+        ///	"ActivityEstimates":"3",
+        ///	"ProjectId": 3,
+        ///	"collaboratorId": 2,
+        /// }
+        /// </example>
+        /// <example>
+        /// POST: curl "http://localhost:50860/api/ActivityData/AddActivity" -d @activity.json -H "Content-type: application/json"
+        /// </example>
         // POST: api/ActivityData/AddActivity
         [ResponseType(typeof(Activity))]
         [HttpPost]
@@ -193,7 +283,15 @@ namespace N01609602_ShreyPatel_PassionProject.Controllers
             return Ok();
         }
 
-        // DELETE: api/ActivityData/DeleteActivity/5
+        /// <summary>
+        /// Deletes a particular activity from the database
+        /// </summary>
+        /// <param name="id">The id which we want to remove.</param>
+        /// <example>POST api/ProjectData/DeleteActivity/3</example>
+        /// <example>
+        /// POST: curl "http://localhost:50860/api/ProjectData/DeleteActivity/16" -d "" -H "Content-type: application/json"
+        /// </example>
+        // POST: api/ActivityData/DeleteActivity/5
         [ResponseType(typeof(Activity))]
         [HttpPost]
         [Route("api/ActivityData/DeleteActivity/{id}")]
