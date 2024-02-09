@@ -26,7 +26,7 @@
             <label for="CollaboratorId" class="form-label">Assign Collaborator</label>
             <select class="form-select" required id="CollaboratorId" name="CollaboratorId" aria-describedby="Collaborator">
                 <option value="">Select Collaborator</option>
-                @foreach (var collaborator in Model.collaborators)
+                @foreach (var collaborator in Model.Collaborators)
                 {
                     <option value="@collaborator.CollaboratorId">@collaborator.CollaboratorFirstName @collaborator.CollaboratorLastName</option>
                 }
@@ -36,7 +36,7 @@
             <label for="ProjectId" class="form-label">Assign Project</label>
             <select class="form-select" required id="ProjectId" name="ProjectId" aria-describedby="Project">
                 <option value="">Select Project</option>
-                @foreach (var project in Model.projects)
+                @foreach (var project in Model.Projects)
                 {
                     <option value="@project.ProjectId">@project.ProjectName</option>
                 }
